@@ -11,21 +11,48 @@
      this.next = (next===undefined ? null : next)
  }
 
-
 /**
  * @param {ListNode} head
  * @return {boolean}
  */
  var isPalindrome = function(head) {
 
-    let len = head.length;
+    var slow = fast = head;
+    var prev = temp = undefined;
 
-    for (let i=0; i<=len/2; i++) {
-        if (head[i] != head[len-i-1]) return false;
+    while(fast && fast.next) {
+        // save slow to temp
+        temp = slow;
+
+        fast = fast.next.next? fast.next.next : fast.next;
+        slow = slow.next;
+
+        // swap 
+        temp.next = prev;
+        prev = temp;
+    }
+
+    while(slow && prev) {
+        if (slow.val !== prev.val) return false;
+
+        slow = slow.next;
+        prev = prev.next;
     }
 
     return true;
 };
 
-console.log(isPalindrome([1,2,2,1]));
-console.log(isPalindrome([1,2]));
+var list = new ListNode(1
+    , new ListNode(2
+        , new ListNode(2
+            , new ListNode(1))));
+console.log(isPalindrome(list));
+
+var list = new ListNode(1
+    , new ListNode(2));
+console.log(isPalindrome(list));
+
+var list = new ListNode(1
+    , new ListNode(0
+        , new ListNode(1)));
+console.log(isPalindrome(list));
