@@ -3,14 +3,13 @@
  * @return {number[]}
  */
 var runningSum = function(nums) {
-    var sums = [];
     nums.reduce((p, x, i) => {
         p+=x;
-        sums.push(p);
+        nums[i] = p;
         return p;
     }, 0);
 
-    return sums;
+    return nums;
 };
 
 console.log(runningSum([1,2,3,4]));
