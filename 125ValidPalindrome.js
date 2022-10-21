@@ -4,7 +4,7 @@
  */
 var isPalindrome = function(s) {
 
-    s = sanitizeText(s).toLowerCase();
+    s = sanitizeText(s);
 
     var mid = Math.floor(s.length/2);
 
@@ -16,15 +16,15 @@ var isPalindrome = function(s) {
 };
 
 function sanitizeText(s) {
+
+    var newS = "";
+
     for (let i=0; i<s.length; i++) {
-        if (!isAlphanumeric(s[i])) s = remove(s, i--);
+        if (isAlphanumeric(s[i]))
+            newS += s[i].toLowerCase();
     }
 
-    return s;
-}
-
-function remove(s, i) {
-    return s.substring(0, i) + s.substring(i+1);
+    return newS;
 }
 
 function isAlphanumeric(c) {
