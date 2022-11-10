@@ -18,35 +18,10 @@ function TreeNode(val) {
  * @return {TreeNode}
  */
  var lowestCommonAncestor = function(root, p, q) {
-    var pAnc = getAnc(root, p.val);
-    var qAnc = getAnc(root, q.val);
-
-    var res = null;
-
-    for(var x, y; pAnc.length||qAnc.length;) {
-        if (pAnc.length) x = pAnc.shift();
-        if (qAnc.length) y = qAnc.shift();
-
-        if (x === y) res = x;
-    }
-
-    return new TreeNode(res);
+    if (p.val > root.val && q.val > root.val) return lowestCommonAncestor(root.right, p, q);
+    if (p.val < root.val && q.val < root.val) return lowestCommonAncestor(root.left, p, q);
+    return root;
 };
-
-function getAnc(r, n) {
-    var anc = [];
-    var i = r;
-
-    while(true) {
-        anc.push(i.val);
-
-        if (n > i.val) i = i.right;
-        else if (n < i.val) i = i.left;
-        else break;
-    }
-
-    return anc;
-}
 
 var ex = new TreeNode(6);
 
